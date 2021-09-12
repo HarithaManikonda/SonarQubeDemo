@@ -22,6 +22,19 @@ pipeline {
                 echo 'Building..'
             }
         }
+        stage('Deploy to Production') {
+            when {
+                expression { 
+                   return params.ENVIRONMENT == 'PROD'
+                }
+            }
+            steps {
+                    sh """
+                    echo "deploy to production"
+                    """
+                }
+            }
+        }
         stage('Test') {
             steps {
                 sh 'mvn test' 
